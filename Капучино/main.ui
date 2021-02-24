@@ -73,7 +73,7 @@
      <string>Название</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="edit">
+   <widget class="QPushButton" name="edit_button">
     <property name="geometry">
      <rect>
       <x>374</x>
@@ -86,7 +86,7 @@
      <string>Редактировать</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="add">
+   <widget class="QPushButton" name="add_button">
     <property name="geometry">
      <rect>
       <x>260</x>
