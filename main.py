@@ -1,10 +1,56 @@
 import sqlite3
 import sys
 
-from PyQt5 import uic
 from PyQt5.Qt import *
 from PyQt5 import QtWidgets
 from PyQt5 import QtCore
+
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(493, 478)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        self.tableWidget.setGeometry(QtCore.QRect(20, 40, 451, 381))
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(0)
+        self.tableWidget.setRowCount(0)
+        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit.setGeometry(QtCore.QRect(70, 10, 211, 20))
+        self.lineEdit.setObjectName("lineEdit")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(310, 10, 75, 23))
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(390, 10, 81, 23))
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(10, 10, 47, 13))
+        self.label.setObjectName("label")
+        self.edit_button = QtWidgets.QPushButton(self.centralwidget)
+        self.edit_button.setGeometry(QtCore.QRect(374, 430, 101, 23))
+        self.edit_button.setObjectName("edit_button")
+        self.add_button = QtWidgets.QPushButton(self.centralwidget)
+        self.add_button.setGeometry(QtCore.QRect(260, 430, 101, 23))
+        self.add_button.setObjectName("add_button")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "Кофе"))
+        self.pushButton.setText(_translate("MainWindow", "Искать"))
+        self.pushButton_2.setText(_translate("MainWindow", "Показать все"))
+        self.label.setText(_translate("MainWindow", "Название"))
+        self.edit_button.setText(_translate("MainWindow", "Редактировать"))
+        self.add_button.setText(_translate("MainWindow", "Добавить"))
 
 
 class Ui_Dialog(object):
@@ -70,11 +116,11 @@ class Ui_Dialog(object):
         self.comboBox.setItemText(1, _translate("Dialog", "молотый"))
 
 
-class Coffeemain(QMainWindow):
+class Coffeemain(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main.ui', self)
-        self.cur = sqlite3.connect('coffee.sqlite').cursor()
+        self.setupUi(self)
+        self.cur = sqlite3.connect('data/bd/coffee.sqlite').cursor()
         self.dialo = None
         self.run()
         self.pushButton.clicked.connect(self.search)
@@ -117,7 +163,7 @@ class AddEditCoffeeForm(QWidget, Ui_Dialog):
         super(AddEditCoffeeForm, self).__init__()
         self.setupUi(self)
         self.callback = callback
-        self.con = sqlite3.connect('coffee.sqlite')
+        self.con = sqlite3.connect('data/bd/coffee.sqlite')
         self.cur = self.con.cursor()
         try:
             self.show()
